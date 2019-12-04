@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Container, Content, Header, Form, Input, Item, Button, Label} from 'native-base';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { Container, Content, Header, Form, Input, Item, Button, Label, Icon} from 'native-base';
 
 import * as firebase from 'firebase';
 
@@ -22,11 +22,20 @@ import * as firebase from 'firebase';
   
 
 export default class App extends React.Component {
-  render() {
+ render() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <Container style={styles.container}>
+      <Header style={{marginTop: StatusBar.currentHeight}}>
+        <Content>
+         <Item>
+          <Input placeholder="Add task"/>
+          <Button>
+            <Icon name="add"/>
+          </Button>
+        </Item>
+        </Content>
+      </Header>
+    </Container>
   );
   }
 }
@@ -35,8 +44,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 
 });
