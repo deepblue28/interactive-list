@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, StatusBar, ListView } from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button, Label, Icon, List ,ListItem} from 'native-base';
 
 import * as firebase from 'firebase';
-import { randomUI12 } from 'uuid-js';
+// import { randomUI12 } from 'uuid-js';
 
 
   // Your web app's Firebase configuration
@@ -21,19 +21,19 @@ import { randomUI12 } from 'uuid-js';
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   
-    var data = ["Blue","Red","Green"]
+    var data = ["I","Tried"]
 
 export default class App extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
-      this.lv = new ListView.DataSource({rowHasChanged: (r1,r2) => r1 !== r2})
+      this.lv = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
 
-     this.state = {
-       ListView: data,
-       newContact: ""
-     }
+        this.state = {
+          ListViewData: data,
+          newContact: ""
+        }
   }
 
  render() {
@@ -43,6 +43,7 @@ export default class App extends React.Component {
       <Content>
         <Item>
           <Input placeholder="add task"/>
+
           <Button>
             <Icon name="add"/>
           </Button>
@@ -50,15 +51,41 @@ export default class App extends React.Component {
       </Content>
     </Header>
 
-    <Content>
-      <List dataSource={this.lv.cloneWithRows(this.state.ListViewData)} 
-      renderRow = {data=>
-         <ListItem>
-           <Text> {data} </Text>
-         </ListItem>
-      }
-      /> 
+    <Content style={styles.content}>
+      <Text style={styles.text}>I</Text>
     </Content>
+
+    <Content style={styles.content}>
+      <Text style={styles.text}>Tried</Text>
+    </Content>
+
+    {/* <Content>
+      <List
+        dataSource={this.lv.cloneWithRows(this.state.ListViewData)}
+        renderRow={data=>
+          <ListItem>
+            <Text> {data}</Text>
+          </ListItem>
+        }
+        renderLeftHiddenRow={data => 
+            <Button full>
+              <Icon name="information-circle"/>
+            </Button>
+        
+        }
+        renderRightHiddenRow={data => 
+          <Button full danger>
+            <Icon name="trash"/>
+          </Button>
+      }
+
+      leftOpenValue={-75}
+      rightOpenValue={-75}
+
+      />
+    </Content> */}
+
+  
 
    
   </Container>
@@ -71,5 +98,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+
+  content: {
+    marginTop: 5,
+  
+  },
+
+  text: {
+    fontSize: 60,
+  }
 
 });
