@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
-import { Container, Content, Header, Form, Input, Item, Button, Label, Icon} from 'native-base';
+import { StyleSheet, Text, View, StatusBar, ListView } from 'react-native';
+import { Container, Content, Header, Form, Input, Item, Button, Label, Icon, List ,ListItem} from 'native-base';
 
 import * as firebase from 'firebase';
+import { randomUI12 } from 'uuid-js';
 
 
   // Your web app's Firebase configuration
@@ -20,24 +21,49 @@ import * as firebase from 'firebase';
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   
+    var data = ["Blue","Red","Green"]
 
 export default class App extends React.Component {
+
+  constructor(props){
+    super(props);
+
+      this.lv = new ListView.DataSource({rowHasChanged: (r1,r2) => r1 !== r2})
+
+     this.state = {
+       ListView: data,
+       newContact: ""
+     }
+  }
+
  render() {
   return (
-    <Container style={styles.container}>
-      <Header style={{marginTop: StatusBar.currentHeight}}>
-        <Content>
-         <Item>
-          <Input placeholder="Add task"/>
+  <Container style={styles.container}>
+    <Header style={{ marginTop: StatusBar.currentHeight }}>
+      <Content>
+        <Item>
+          <Input placeholder="add task"/>
           <Button>
             <Icon name="add"/>
           </Button>
         </Item>
-        </Content>
-      </Header>
-    </Container>
+      </Content>
+    </Header>
+
+    <Content>
+      <List dataSource={this.lv.cloneWithRows(this.state.ListViewData)} 
+      renderRow = {data=>
+         <ListItem>
+           <Text> {data} </Text>
+         </ListItem>
+      }
+      /> 
+    </Content>
+
+   
+  </Container>
   );
-  }
+ }
 }
 
 const styles = StyleSheet.create({
