@@ -1,111 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, ListView } from 'react-native';
-import { Container, Content, Header, Form, Input, Item, Button, Label, Icon, List ,ListItem} from 'native-base';
-
-import * as firebase from 'firebase';
-// import { randomUI12 } from 'uuid-js';
+import Main from './Components/Main';
 
 
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyClYo3mS5GbLdDBP92vUN-DeyiIrDnDgy4",
-    authDomain: "interactive-todo.firebaseapp.com",
-    databaseURL: "https://interactive-todo.firebaseio.com",
-    projectId: "interactive-todo",
-    storageBucket: "interactive-todo.appspot.com",
-    messagingSenderId: "768330931029",
-    appId: "1:768330931029:web:e154e6628a57bf04012ddc",
-    measurementId: "G-L72N7J43H9"
-  };
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  
-    var data = ["I","Tried"]
 
 export default class App extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-      this.lv = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-
-        this.state = {
-          ListViewData: data,
-          newContact: ""
-        }
-  }
-
  render() {
   return (
-  <Container style={styles.container}>
-    <Header style={{ marginTop: StatusBar.currentHeight }}>
-      <Content>
-        <Item>
-          <Input placeholder="add task"/>
-
-          <Button>
-            <Icon name="add"/>
-          </Button>
-        </Item>
-      </Content>
-    </Header>
-
-    <Content style={styles.content}>
-      <Text style={styles.text}>I</Text>
-    </Content>
-
-    <Content style={styles.content}>
-      <Text style={styles.text}>Tried</Text>
-    </Content>
-
-    {/* <Content>
-      <List
-        dataSource={this.lv.cloneWithRows(this.state.ListViewData)}
-        renderRow={data=>
-          <ListItem>
-            <Text> {data}</Text>
-          </ListItem>
-        }
-        renderLeftHiddenRow={data => 
-            <Button full>
-              <Icon name="information-circle"/>
-            </Button>
-        
-        }
-        renderRightHiddenRow={data => 
-          <Button full danger>
-            <Icon name="trash"/>
-          </Button>
-      }
-
-      leftOpenValue={-75}
-      rightOpenValue={-75}
-
-      />
-    </Content> */}
-
-  
-
-   
-  </Container>
+    <Main />
   );
- }
-}
+}}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
 
-  content: {
-    marginTop: 5,
-  
-  },
-
-  text: {
-    fontSize: 60,
-  }
-
-});
