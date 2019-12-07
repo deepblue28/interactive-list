@@ -1,10 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 
-
+import Task from './Task';
 export default class Main extends React.Component {
 
-render(){
+    constructor(props) {
+        super(props);
+        this.state = {
+          noteArray: [],
+          noteText: '',
+        }
+    }
+
+render() {
+    {/*PASS VALUES FOR ADD & DELETE*/}
+
+    let notes = this.state.noteArray.map((val, key) => {
+        return <Task key={key} keyval={key} val={val}
+        deleteMethod={ ()=> this.deleteNote(key) } />
+});
+
+
   return(
     <View style={styles.container}>
       <View style={styles.header}>
@@ -12,23 +28,49 @@ render(){
       </View>
         
         <ScrollView style={styles.scrollContainer}>
-
+            {notes}
         </ScrollView>
      
         <View style={styles.footer}>
             
-            <TextInput style={styles.contentFooter}
-            placeholder='>note'
-            placeholderTextColor='white'
-            underlineColorAndroid='transparent'>
+        {/*INPUT BUTTON ON PRESS*/}
 
+            <TextInput style={styles.contentFooter}
+                onChangeText={(noteText) => this.setState({noteText})}
+                value={this.state.noteText}
+                placeholder='>note'
+                placeholderTextColor='white'
+                underlineColorAndroid='transparent'>
             </TextInput>
         </View>
+
+        {/*ACTIVATE BUTTON ON PRESS*/}
+        <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.addButton}>
+            <Text style={styles.Add}>+</Text>
+        </TouchableOpacity>
     </View>
 
         );
     }
-
+    // ADD NOTES BUTTON FUNCTION
+        addNote(){
+           if (this.state.noteText) {
+               var X = new Date();
+               this.state.noteArray.push({
+                  'date': X.getFullYear() +
+                  "/" + (X.getMonth() + 1) +
+                  "/" + X.getDate(),
+                  'task': this.state.noteText
+               });
+               this.setState({ noteArray: this.state.noteArray })
+               this.setState({ noteText: '' });
+           }
+        }
+    // DELETE NOTES BUTTON FUNCTION
+      deleteNote(key) {
+        this.state.noteArray.splice(key, 1);
+        this.setState({ noteArray: this.state.noteArray })
+    }
 }
 
 const styles = StyleSheet.create({
@@ -109,7 +151,7 @@ const styles = StyleSheet.create({
 
         bottom: 90,
 
-        backgroundColor: '#E91E63',
+        backgroundColor: '#1e3799',
 
         width: 90,
 
@@ -125,9 +167,9 @@ const styles = StyleSheet.create({
 
     },
   
-    addButtonText: {
+    Add: {
 
-        color: '#fff',
+        color: 'white',
 
         fontSize: 24,
 
@@ -143,7 +185,7 @@ const styles = StyleSheet.create({
 
         borderBottomWidth: 2,
 
-        borderBottomColor: '#ededed',
+        borderBottomColor: '#4a69bd',
 
     },
   
@@ -153,7 +195,7 @@ const styles = StyleSheet.create({
       
       borderLeftWidth: 10,
 
-      borderLeftColor: '#e91e63',
+      borderLeftColor: '#1e3799',
 
   },
   
@@ -161,7 +203,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#2980b9',
+      backgroundColor: '#b71540',
       padding: 10,
       top: 10,
       bottom: 10,
